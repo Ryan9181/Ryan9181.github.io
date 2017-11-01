@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="Ryan&#39;s Blog">
 <meta property="og:description" content="Windows在windows可以使用 For /R 递归遍历制定目录的文件,然后进行相应的处理,也可以把标准输出的内容重定向到文件中如: 1For %1 in (*.js) Do echo %1 %~n1 &amp;gt; result.log 关于For的具体使用可以查阅For Command的帮助 MacOSX我们可以使用 Find -name -exec 来实现和Windows中的For 类似的功">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-01T15:22:14.000Z">
+<meta property="og:updated_time" content="2017-11-01T15:40:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="find exec command 重定向">
 <meta name="twitter:description" content="Windows在windows可以使用 For /R 递归遍历制定目录的文件,然后进行相应的处理,也可以把标准输出的内容重定向到文件中如: 1For %1 in (*.js) Do echo %1 %~n1 &amp;gt; result.log 关于For的具体使用可以查阅For Command的帮助 MacOSX我们可以使用 Find -name -exec 来实现和Windows中的For 类似的功">
@@ -250,7 +250,10 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> cat &#123;&#125; \;</div></pre></td></tr></table></figure>
 <p>但是上面要把结果重定向到文件中 写法如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> cat &#123;&#125; &gt; &#123;&#125;.<span class="built_in">log</span> \;</div></pre></td></tr></table></figure></p>
 <p>这种写法是错误的 因为bash把 &gt; 理解为find 命令的重定向，在修改一下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> cat &#123;&#125; \&gt; &#123;&#125;.<span class="built_in">log</span> \;</div><div class="line"><span class="comment"># bash 理解成 cat 重定向到名为 ‘&gt;'的文件</span></div></pre></td></tr></table></figure></p>
-<p>打开万能的Google 输入 find -exec redirect<br>找到一个<a href="http://www.loisch.de/linux.html提供的解决方案" target="_blank" rel="external">http://www.loisch.de/linux.html提供的解决方案</a>:</p>
+<p>打开万能的Google 输入 find -exec redirect</p>
+<blockquote>
+<p><a href="http://www.loisch.de/linux.html提供的解决方案" target="_blank" rel="external">http://www.loisch.de/linux.html提供的解决方案</a>:</p>
+</blockquote>
 <p>把 -exec 的命令让shell来执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> bash -c <span class="string">"cat &#123;&#125; &gt; &#123;&#125;.log"</span> \;</div></pre></td></tr></table></figure></p>
 <p>Well Done.</p>
 
@@ -263,7 +266,7 @@
 
 </div>
 
-    <a data-url="http://blog.nfox.ml/2017/11/01/find-exec-command-重定向/" data-id="cj9h7h9bm0002xzoz0hvxvmle" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://blog.nfox.ml/2017/11/01/find-exec-command-重定向/" data-id="cj9h847n40001ypoz8mghgche" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding

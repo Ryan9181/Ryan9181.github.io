@@ -241,7 +241,7 @@
         
             
             <p>Coco2dx-html 代码解密, 找到 IDA Pro 打开.so文件ScriptCore::ComipleScript函数,找到<br>加载JS代码部分和XOR的KEY 分析后为简单的XOR加密 too simple so easy, 妈妈咪呀。 </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> (process.argv.length &lt; <span class="number">3</span>) &#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">'Usage: '</span> + process.argv[<span class="number">0</span>] + <span class="string">' &lt;path&gt;\n'</span>);</div><div class="line">	process.exit();</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">fs.readFile(process.argv[<span class="number">2</span>], <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>) </span>&#123;</div><div class="line">	<span class="keyword">if</span> (err) &#123;</div><div class="line">		<span class="built_in">console</span>.error(err);</div><div class="line">		<span class="keyword">return</span>;	</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">var</span> buf  = <span class="keyword">new</span> Buffer(data.length);</div><div class="line">	<span class="keyword">const</span> strMagic		= <span class="string">'[encrypted]'</span>;</div><div class="line">	<span class="keyword">const</span> strXOR 		= <span class="string">'g465hjhbf4tydfyu5GJHG457DjgjkfUGJ214KBLJKLNgu84yftFYG1238JHfytdr4HFGH'</span>;</div><div class="line">	</div><div class="line">	<span class="keyword">if</span> (strMagic == data.slice(<span class="number">0</span>, strMagic.length)) &#123;</div><div class="line">		<span class="comment">// just xor encrypted javascript file</span></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;data.length - strMagic.length; i++)</div><div class="line">			buf[i] = data[ i + strMagic.length ] ^ strXOR.charCodeAt(i % strXOR.length);</div><div class="line">		</div><div class="line">		<span class="built_in">console</span>.log(buf.toString());</div><div class="line">	&#125; <span class="keyword">else</span> &#123;</div><div class="line">		<span class="built_in">console</span>.log(data.toString());</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">var fs = require(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> (process.argv.length &lt; 3) &#123;</div><div class="line">    console.log(<span class="string">'Usage: '</span> + process.argv[0] + <span class="string">' &lt;path&gt;\n'</span>);</div><div class="line">    process.exit();</div><div class="line">&#125;</div><div class="line"></div><div class="line">fs.readFile(process.argv[2], <span class="keyword">function</span>(err, data) &#123;</div><div class="line">    <span class="keyword">if</span> (err) &#123;</div><div class="line">        console.error(err);</div><div class="line">        <span class="built_in">return</span>; </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var buf  = new Buffer(data.length);</div><div class="line">    const strMagic      = <span class="string">'[encrypted]'</span>;</div><div class="line">    const strXOR        = <span class="string">'g465hjhbf4tydfyu5GJHG457DjgjkfUGJ214KBLJKLNgu84yftFYG1238JHfytdr4HFGH'</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (strMagic == data.slice(0, strMagic.length)) &#123;</div><div class="line">        // just xor encrypted javascript file</div><div class="line">        <span class="keyword">for</span> (<span class="built_in">let</span> i=0; i&lt;data.length - strMagic.length; i++)</div><div class="line">            buf[i] = data[ i + strMagic.length ] ^ strXOR.charCodeAt(i % strXOR.length);</div><div class="line">        </div><div class="line">        console.log(buf.toString());</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        console.log(data.toString());</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
         
         </div>
         <footer class="article-footer">
@@ -251,7 +251,7 @@
 
 </div>
 
-    <a data-url="http://blog.nfox.ml/2017/11/01/Javascript-Xor-decrypt/" data-id="cj9h7h9bk0001xzoze6l5uqvc" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://blog.nfox.ml/2017/11/01/Javascript-Xor-decrypt/" data-id="cj9h847mx0000ypozs66iu393" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -367,7 +367,10 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> cat &#123;&#125; \;</div></pre></td></tr></table></figure>
 <p>但是上面要把结果重定向到文件中 写法如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> cat &#123;&#125; &gt; &#123;&#125;.<span class="built_in">log</span> \;</div></pre></td></tr></table></figure></p>
 <p>这种写法是错误的 因为bash把 &gt; 理解为find 命令的重定向，在修改一下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> cat &#123;&#125; \&gt; &#123;&#125;.<span class="built_in">log</span> \;</div><div class="line"><span class="comment"># bash 理解成 cat 重定向到名为 ‘&gt;'的文件</span></div></pre></td></tr></table></figure></p>
-<p>打开万能的Google 输入 find -exec redirect<br>找到一个<a href="http://www.loisch.de/linux.html提供的解决方案" target="_blank" rel="external">http://www.loisch.de/linux.html提供的解决方案</a>:</p>
+<p>打开万能的Google 输入 find -exec redirect</p>
+<blockquote>
+<p><a href="http://www.loisch.de/linux.html提供的解决方案" target="_blank" rel="external">http://www.loisch.de/linux.html提供的解决方案</a>:</p>
+</blockquote>
 <p>把 -exec 的命令让shell来执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> bash -c <span class="string">"cat &#123;&#125; &gt; &#123;&#125;.log"</span> \;</div></pre></td></tr></table></figure></p>
 <p>Well Done.</p>
 
@@ -380,7 +383,7 @@
 
 </div>
 
-    <a data-url="http://blog.nfox.ml/2017/11/01/find-exec-command-重定向/" data-id="cj9h7h9bm0002xzoz0hvxvmle" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://blog.nfox.ml/2017/11/01/find-exec-command-重定向/" data-id="cj9h847n40001ypoz8mghgche" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -499,7 +502,7 @@
 
 </div>
 
-    <a data-url="http://blog.nfox.ml/2017/09/24/Gigi for Love/" data-id="cj9h7h9bf0000xzozulum3i0h" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://blog.nfox.ml/2017/09/24/Gigi for Love/" data-id="cj9h847nb0002ypozlzzm9e8v" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -626,7 +629,7 @@
 
 </div>
 
-    <a data-url="http://blog.nfox.ml/2017/09/23/每天8公里的减肥路程/" data-id="cj9h7h9bt0005xzoz905ip1kj" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://blog.nfox.ml/2017/09/23/每天8公里的减肥路程/" data-id="cj9h847nh0005ypozhlnuhh0r" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -746,7 +749,7 @@
 
 </div>
 
-    <a data-url="http://blog.nfox.ml/2017/09/23/我的博客序言/" data-id="cj9h7h9br0004xzozlapgh1z1" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://blog.nfox.ml/2017/09/23/我的博客序言/" data-id="cj9h847nf0004ypoznbyie021" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -874,7 +877,7 @@
 
 </div>
 
-    <a data-url="http://blog.nfox.ml/2017/09/23/hello-world/" data-id="cj9h7h9bo0003xzozj7zfmx8r" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://blog.nfox.ml/2017/09/23/hello-world/" data-id="cj9h847nd0003ypozhgfmfqjb" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
