@@ -244,6 +244,8 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> (process.argv.length &lt; <span class="number">3</span>) &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Usage: '</span> + process.argv[<span class="number">0</span>] + <span class="string">' &lt;path&gt;\n'</span>);</div><div class="line">    process.exit();</div><div class="line">&#125;</div><div class="line"></div><div class="line">fs.readFile(process.argv[<span class="number">2</span>], <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (err) &#123;</div><div class="line">        <span class="built_in">console</span>.error(err);</div><div class="line">        <span class="keyword">return</span>; </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> buf  = <span class="keyword">new</span> Buffer(data.length);</div><div class="line">    <span class="keyword">const</span> strMagic      = <span class="string">'[encrypted]'</span>;</div><div class="line">    <span class="keyword">const</span> strXOR        = <span class="string">'g465hjhbf4tydfyu5GJHG457DjgjkfUGJ214KBLJKLNgu84yftFYG1238JHfytdr4HFGH'</span>;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (strMagic == data.slice(<span class="number">0</span>, strMagic.length)) &#123;</div><div class="line">        <span class="comment">// just xor encrypted javascript file</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;data.length - strMagic.length; i++)</div><div class="line">            buf[i] = data[ i + strMagic.length ] ^ strXOR.charCodeAt(i % strXOR.length);</div><div class="line">        </div><div class="line">        <span class="built_in">console</span>.log(buf.toString());</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">console</span>.log(data.toString());</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <blockquote>
 <p>去掉js的空行, 因为由于特殊字符的存在，空行并不是真的空行（^$）<br>[[:space:]]表示空格或者tab的集合,<br>[[:space:]]后面跟着一个<em>，表示匹配0个或多个。<br>[[:space:]]可以用/s表示<br>sed /^/s</em>$/d<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> sh -c <span class="string">"node ~/Jobs/stuff/decrypt.js &#123;&#125;|sed /^[[:space:]]*$/d &gt; &#123;&#125;.txt"</span> \;</div></pre></td></tr></table></figure></p>
+<p>删除加密文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> rm &#123;&#125;<span class="string">" \;</span></div></pre></td></tr></table></figure></p>
+<p>批量把文件名修改回原始.js文件名称<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> bash -c <span class="string">"echo &#123;&#125; | cut -d . -f 1-3 |xargs  mv &#123;&#125;"</span> \;</div></pre></td></tr></table></figure></p>
 </blockquote>
 <p>试试Markdown流程图功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">st=&gt;start: 开始</div><div class="line">e=&gt;end</div><div class="line">op=&gt;operation: 开始作业</div><div class="line">cond=&gt;condition: 作业是否完成?</div><div class="line"></div><div class="line">st-&gt;op-&gt;cond</div><div class="line">cond(是)-&gt;e</div><div class="line">cond(否)-&gt;op</div></pre></td></tr></table></figure></p>
 
@@ -256,7 +258,7 @@
 
 </div>
 
-    <a data-url="http://blog.nfox.ml/2017/11/01/Javascript-Xor-decrypt/" data-id="cj9hb0gha0001ghozq6028rl5" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://blog.nfox.ml/2017/11/01/Javascript-Xor-decrypt/" data-id="cj9hfi23l0002n3ozgb55glrk" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -388,7 +390,7 @@
 
 </div>
 
-    <a data-url="http://blog.nfox.ml/2017/11/01/find-exec-command-重定向/" data-id="cj9hb0ghd0002ghozqm56tyct" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://blog.nfox.ml/2017/11/01/find-exec-command-重定向/" data-id="cj9hfi23i0001n3ozxaxyinii" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -507,7 +509,7 @@
 
 </div>
 
-    <a data-url="http://blog.nfox.ml/2017/09/24/Gigi for Love/" data-id="cj9hb0gh50000ghozyaxlsn8d" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://blog.nfox.ml/2017/09/24/Gigi for Love/" data-id="cj9hfi23d0000n3ozp20felqf" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -634,7 +636,7 @@
 
 </div>
 
-    <a data-url="http://blog.nfox.ml/2017/09/23/每天8公里的减肥路程/" data-id="cj9hb0ghi0005ghoz6mc0t6vu" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://blog.nfox.ml/2017/09/23/每天8公里的减肥路程/" data-id="cj9hfi23n0004n3oz8rk0t7ek" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -754,7 +756,7 @@
 
 </div>
 
-    <a data-url="http://blog.nfox.ml/2017/09/23/我的博客序言/" data-id="cj9hb0ghh0004ghoz0p80qkfd" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://blog.nfox.ml/2017/09/23/我的博客序言/" data-id="cj9hfi23m0003n3oz6ohpc8ue" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -882,7 +884,7 @@
 
 </div>
 
-    <a data-url="http://blog.nfox.ml/2017/09/23/hello-world/" data-id="cj9hb0ghf0003ghozqhjzsjyr" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://blog.nfox.ml/2017/09/23/hello-world/" data-id="cj9hfi23o0005n3ozkxtj2kxw" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
