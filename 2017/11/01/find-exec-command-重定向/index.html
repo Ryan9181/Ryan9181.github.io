@@ -3,19 +3,19 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Gigi For Love | Ryan&#39;s Blog</title>
+    <title>find exec command 重定向 | Ryan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="第一个标题第一个子标题第二个标题第二个子标题">
+    <meta name="description" content="Windows在windows可以使用 For /R 递归遍历制定目录的文件,然后进行相应的处理,也可以把标准输出的内容重定向到文件中如: 1For %1 in (*.js) Do echo %1 %~n1 &amp;gt; result.log 关于For的具体使用可以查阅For Command的帮助 MacOSX我们可以使用 Find -name -exec 来实现和Windows中的For 类似的功">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Gigi For Love">
-<meta property="og:url" content="http://blog.nfox.ml/2017/09/24/Gigi for Love/index.html">
+<meta property="og:title" content="find exec command 重定向">
+<meta property="og:url" content="http://blog.nfox.ml/2017/11/01/find-exec-command-重定向/index.html">
 <meta property="og:site_name" content="Ryan&#39;s Blog">
-<meta property="og:description" content="第一个标题第一个子标题第二个标题第二个子标题">
+<meta property="og:description" content="Windows在windows可以使用 For /R 递归遍历制定目录的文件,然后进行相应的处理,也可以把标准输出的内容重定向到文件中如: 1For %1 in (*.js) Do echo %1 %~n1 &amp;gt; result.log 关于For的具体使用可以查阅For Command的帮助 MacOSX我们可以使用 Find -name -exec 来实现和Windows中的For 类似的功">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-09-23T08:36:22.000Z">
+<meta property="og:updated_time" content="2017-11-01T15:22:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gigi For Love">
-<meta name="twitter:description" content="第一个标题第一个子标题第二个标题第二个子标题">
+<meta name="twitter:title" content="find exec command 重定向">
+<meta name="twitter:description" content="Windows在windows可以使用 For /R 递归遍历制定目录的文件,然后进行相应的处理,也可以把标准输出的内容重定向到文件中如: 1For %1 in (*.js) Do echo %1 %~n1 &amp;gt; result.log 关于For的具体使用可以查阅For Command的帮助 MacOSX我们可以使用 Find -name -exec 来实现和Windows中的For 类似的功">
     
 
     
@@ -210,7 +210,7 @@
 </aside>
 
             
-            <section id="main"><article id="post-Gigi for Love" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-find-exec-command-重定向" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -218,7 +218,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            Gigi For Love
+            find exec command 重定向
         </h1>
     
 
@@ -227,8 +227,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/09/24/Gigi for Love/">
-            <time datetime="2017-09-23T17:10:13.000Z" itemprop="datePublished">2017-09-24</time>
+        <a href="/2017/11/01/find-exec-command-重定向/">
+            <time datetime="2017-11-01T15:03:56.000Z" itemprop="datePublished">2017-11-01</time>
         </a>
     </div>
 
@@ -243,7 +243,17 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h2 id="第一个标题"><a href="#第一个标题" class="headerlink" title="第一个标题"></a>第一个标题</h2><h3 id="第一个子标题"><a href="#第一个子标题" class="headerlink" title="第一个子标题"></a>第一个子标题</h3><h2 id="第二个标题"><a href="#第二个标题" class="headerlink" title="第二个标题"></a>第二个标题</h2><h3 id="第二个子标题"><a href="#第二个子标题" class="headerlink" title="第二个子标题"></a>第二个子标题</h3>
+            <h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><p>在windows可以使用 For /R 递归遍历制定目录的文件,然后进行相应的处理,<br>也可以把标准输出的内容重定向到文件中如:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">For %1 <span class="keyword">in</span> (*.js) Do <span class="built_in">echo</span> %1 %~n1 &gt; result.log</div></pre></td></tr></table></figure>
+<p>关于For的具体使用可以查阅For Command的帮助</p>
+<h2 id="MacOSX"><a href="#MacOSX" class="headerlink" title="MacOSX"></a>MacOSX</h2><p>我们可以使用 Find -name -exec 来实现和Windows中的For 类似的功能</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> cat &#123;&#125; \;</div></pre></td></tr></table></figure>
+<p>但是上面要把结果重定向到文件中 写法如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> cat &#123;&#125; &gt; &#123;&#125;.<span class="built_in">log</span> \;</div></pre></td></tr></table></figure></p>
+<p>这种写法是错误的 因为bash把 &gt; 理解为find 命令的重定向，在修改一下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> cat &#123;&#125; \&gt; &#123;&#125;.<span class="built_in">log</span> \;</div><div class="line"><span class="comment"># bash 理解成 cat 重定向到名为 ‘&gt;'的文件</span></div></pre></td></tr></table></figure></p>
+<p>打开万能的Google 输入 find -exec redirect<br>找到一个<a href="http://www.loisch.de/linux.html提供的解决方案" target="_blank" rel="external">http://www.loisch.de/linux.html提供的解决方案</a>:</p>
+<p>把 -exec 的命令让shell来执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">find . -name <span class="string">"*.js"</span> -<span class="built_in">exec</span> bash -c <span class="string">"cat &#123;&#125; &gt; &#123;&#125;.log"</span> \;</div></pre></td></tr></table></figure></p>
+<p>Well Done.</p>
+
         
         </div>
         <footer class="article-footer">
@@ -253,7 +263,7 @@
 
 </div>
 
-    <a data-url="http://blog.nfox.ml/2017/09/24/Gigi for Love/" data-id="cj9h6y7wj0000vmoz3g0jiznb" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="http://blog.nfox.ml/2017/11/01/find-exec-command-重定向/" data-id="cj9h6y7wq0001vmoz8xodmbju" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -328,19 +338,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2017/11/01/find-exec-command-重定向/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    find exec command 重定向
-                
-            </div>
-        </a>
     
-    
-        <a href="/2017/09/23/每天8公里的减肥路程/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2017/09/24/Gigi for Love/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">每天8公里</div>
+            <div class="article-nav-title">Gigi For Love</div>
         </a>
     
 </nav>
